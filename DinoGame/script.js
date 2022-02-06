@@ -2,6 +2,9 @@ var dino = document.getElementById("dino");
 var cactus = document.getElementById("cactus");
 var score = 0;
 var scorable = true;
+var highscore = localStorage.getItem("highscore");
+document.getElementById('highestScore').innerHTML = "Highest Score: "+ highscore;
+
 document.body.onkeyup = function(e){
     if(e.keyCode == 32){
         if(dino.classList != "animate"){
@@ -18,7 +21,8 @@ var checkScorable = setInterval(() => {
 var checkScore = setInterval(() => {
     var cactusLeft = parseInt(window.getComputedStyle(cactus).getPropertyValue("left"));
     if (cactusLeft < 30 && cactusLeft > 0 && scorable){
-       score+=1;
+       score+=100;
+       document.getElementById('score').innerHTML = "Score: "+ score;
        scorable = false;
     }
 }, 10);
@@ -29,6 +33,15 @@ var checkDeath = setInterval(() => {
         cactus.style.animation = "none";
         cactus.style.display = "none";
         alert("Game Over\nScore: "+score);
+        if(highscore !== null){
+            if (score > highscore) {
+                localStorage.setItem("highscore", score);      
+            }
+        }
+        else{
+            localStorage.setItem("highscore", score);
+        }
         score = 0;
+        location.reload();
     }
 }, 10);
