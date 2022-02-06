@@ -3,7 +3,12 @@ var cactus = document.getElementById("cactus");
 var score = 0;
 var scorable = true;
 var highscore = localStorage.getItem("highscore");
-document.getElementById('highestScore').innerHTML = "Highest Score: "+ highscore;
+if(highscore !== null){
+    document.getElementById('highestScore').innerHTML = "Highest Score: "+ highscore;
+}
+else{
+    document.getElementById('highestScore').innerHTML = "Highest Score: 0";
+}
 
 document.body.onkeyup = function(e){
     if(e.keyCode == 32){
